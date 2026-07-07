@@ -33,13 +33,13 @@
 **Estimated size**: 7 subtasks, ~350-400 lines.
 
 Included subtasks:
-- [ ] T001 Add `${VAR}`/`$VAR` + `~` expansion at `effective_root()` resolution time; keep stored `local_path` literal (WP01)
-- [ ] T002 Add fail-closed error for unset/empty env var (WP01)
-- [ ] T003 Verify/fix `save_pack_registry` round-trip preserves the literal template (WP01)
-- [ ] T004 Confirm legacy `organisation_packs[].path` shape shares the same expansion seam (WP01)
-- [ ] T005 Add regression + new test coverage (WP01)
-- [ ] T006 Document `SPEC_KITTY_PACK_HOME` (WP01)
-- [ ] T007 Run doctrine test subset + ruff/mypy (WP01)
+- [x] T001 Add `${VAR}`/`$VAR` + `~` expansion at `effective_root()` resolution time; keep stored `local_path` literal (WP01)
+- [x] T002 Add fail-closed error for unset/empty env var (WP01)
+- [x] T003 Verify/fix `save_pack_registry` round-trip preserves the literal template (WP01)
+- [x] T004 Confirm legacy `organisation_packs[].path` shape shares the same expansion seam (WP01)
+- [x] T005 Add regression + new test coverage (WP01)
+- [x] T006 Document `SPEC_KITTY_PACK_HOME` (WP01)
+- [x] T007 Run doctrine test subset + ruff/mypy (WP01)
 
 **Implementation sketch**: Read `org_pack_config.py` fully first. Add a pure helper (e.g. `_expand_path_template`) that applies `os.path.expandvars` then `os.path.expanduser` to a raw string, raising a new `OrgPackEnvVarUnsetError` (or extending `OrgPackMissingError`) when `expandvars` leaves an unresolved `${...}`/`$...` token. Call this helper inside `effective_root()` immediately before the `is_absolute()` branch — not inside the `local_path` field validator. Narrow or retire `_expand_tilde`'s eager-expansion behavior so the stored field stays literal. Confirm `_pack_to_yaml_dict`/`save_pack_registry` still round-trips the literal string. Confirm `_registry_from_legacy_organisation_packs` inherits the fix for free via the shared `OrgPackConfig` constructor.
 

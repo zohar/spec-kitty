@@ -23,7 +23,8 @@ subtasks:
 - T014
 phase: Phase 1 - Core fixes
 assignee: ''
-agent: ''
+agent: "cursor:composer-2.5-fast:implementer-ivan:implementer"
+shell_pid: "5151"
 history:
 - at: '2026-07-07T12:08:11Z'
   actor: system
@@ -208,3 +209,4 @@ This WP implements FR-008 through FR-012, NFR-002, C-005 from `kitty-specs/pack-
 > **CRITICAL**: Activity log entries MUST be in chronological order (oldest first, newest last).
 
 - 2026-07-07T12:08:11Z – system – Prompt created.
+- 2026-07-07T12:37:20Z – cursor:composer-2.5-fast:implementer-ivan:implementer – shell_pid=5151 – Assigned agent via action command
