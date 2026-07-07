@@ -25,8 +25,8 @@ subtasks:
 - T007
 phase: Phase 1 - Core fixes
 assignee: ''
-agent: "cursor:composer-2.5-fast:implementer-ivan:implementer"
-shell_pid: "5112"
+agent: "cursor:composer-2.5-fast:reviewer-renata:reviewer"
+shell_pid: "15524"
 history:
 - at: '2026-07-07T12:08:11Z'
   actor: system
@@ -211,3 +211,6 @@ Read the existing `OrgPackMissingError` family in `src/specify_cli/doctrine/conf
 
 - 2026-07-07T12:08:11Z – system – Prompt created.
 - 2026-07-07T12:37:19Z – cursor:composer-2.5-fast:implementer-ivan:implementer – shell_pid=5112 – Assigned agent via action command
+- 2026-07-07T12:46:16Z – cursor:composer-2.5-fast:implementer-ivan:implementer – shell_pid=5112 – Ready for review: env-var indirection implemented, tested, docs updated
+- 2026-07-07T12:46:25Z – cursor:composer-2.5-fast:reviewer-renata:reviewer – shell_pid=15524 – Started review via action command
+- 2026-07-07T12:52:35Z – user – shell_pid=15524 – Review passed: env-var/tilde expansion correctly scoped to effective_root() (T001), stored local_path field never mutated (_coerce_local_path no-op verified), round-trip preserved and tested (test_round_trip_preserves_env_var_template), unset-var fails closed via new OrgPackEnvVarUnsetError (naming var+pack, not swallowed by pack_context.py's broad except), subdir validator/symlink-escape check untouched, legacy organisation_packs shape verified to funnel through the same OrgPackConfig constructor (T004). 79/79 targeted tests pass, ruff clean, mypy --strict clean. Docs updated for SPEC_KITTY_PACK_HOME.

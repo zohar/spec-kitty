@@ -55,13 +55,13 @@ Included subtasks:
 **Estimated size**: 7 subtasks, ~350-400 lines.
 
 Included subtasks:
-- [ ] T008 Persist structured `languages` field at compile time (WP02)
-- [ ] T009 Update `infer_repo_languages` resolution precedence (WP02)
-- [ ] T010 Verify consumers (`context.py`, `compact.py`) (WP02)
-- [ ] T011 Invert pinning test + add disagreement/structured-field cases (WP02)
-- [ ] T012 Add backward-compatibility test (WP02)
-- [ ] T013 Update documentation (WP02)
-- [ ] T014 Run charter test subset + ruff/mypy + terminology guard (WP02)
+- [x] T008 Persist structured `languages` field at compile time (WP02)
+- [x] T009 Update `infer_repo_languages` resolution precedence (WP02)
+- [x] T010 Verify consumers (`context.py`, `compact.py`) (WP02)
+- [x] T011 Invert pinning test + add disagreement/structured-field cases (WP02)
+- [x] T012 Add backward-compatibility test (WP02)
+- [x] T013 Update documentation (WP02)
+- [x] T014 Run charter test subset + ruff/mypy + terminology guard (WP02)
 
 **Implementation sketch**: Read `compiler.py`, `language_scope.py`, `context.py` (lines ~1320,1326,2188-2207), and `compact.py:195` fully first. Extend the compiler's output schema with a structured language set computed from interview answers at compile time (reusing the existing `extract_declared_languages` extractor, invoked once, canonically, at compile time). Update `infer_repo_languages` (or introduce its replacement, keeping the public call signature stable for existing callers) to read that structured value first; only fall back to today's interview-transcript-then-charter-prose extraction when no structured value exists yet. Run `tests/charter/test_language_scope.py::test_infer_repo_languages_prefers_interview_answers` unmodified first to confirm it is currently green (i.e., encodes the bug), then invert its assertion and add the missing disagreement case.
 
