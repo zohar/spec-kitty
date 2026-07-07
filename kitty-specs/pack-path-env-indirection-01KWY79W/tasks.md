@@ -33,13 +33,13 @@
 **Estimated size**: 7 subtasks, ~350-400 lines.
 
 Included subtasks:
-- [x] T001 Add `${VAR}`/`$VAR` + `~` expansion at `effective_root()` resolution time; keep stored `local_path` literal (WP01)
-- [x] T002 Add fail-closed error for unset/empty env var (WP01)
-- [x] T003 Verify/fix `save_pack_registry` round-trip preserves the literal template (WP01)
-- [x] T004 Confirm legacy `organisation_packs[].path` shape shares the same expansion seam (WP01)
-- [x] T005 Add regression + new test coverage (WP01)
-- [x] T006 Document `SPEC_KITTY_PACK_HOME` (WP01)
-- [x] T007 Run doctrine test subset + ruff/mypy (WP01)
+- [ ] T001 Add `${VAR}`/`$VAR` + `~` expansion at `effective_root()` resolution time; keep stored `local_path` literal (WP01)
+- [ ] T002 Add fail-closed error for unset/empty env var (WP01)
+- [ ] T003 Verify/fix `save_pack_registry` round-trip preserves the literal template (WP01)
+- [ ] T004 Confirm legacy `organisation_packs[].path` shape shares the same expansion seam (WP01)
+- [ ] T005 Add regression + new test coverage (WP01)
+- [ ] T006 Document `SPEC_KITTY_PACK_HOME` (WP01)
+- [ ] T007 Run doctrine test subset + ruff/mypy (WP01)
 
 **Implementation sketch**: Read `org_pack_config.py` fully first. Add a pure helper (e.g. `_expand_path_template`) that applies `os.path.expandvars` then `os.path.expanduser` to a raw string, raising a new `OrgPackEnvVarUnsetError` (or extending `OrgPackMissingError`) when `expandvars` leaves an unresolved `${...}`/`$...` token. Call this helper inside `effective_root()` immediately before the `is_absolute()` branch — not inside the `local_path` field validator. Narrow or retire `_expand_tilde`'s eager-expansion behavior so the stored field stays literal. Confirm `_pack_to_yaml_dict`/`save_pack_registry` still round-trips the literal string. Confirm `_registry_from_legacy_organisation_packs` inherits the fix for free via the shared `OrgPackConfig` constructor.
 
@@ -55,13 +55,13 @@ Included subtasks:
 **Estimated size**: 7 subtasks, ~350-400 lines.
 
 Included subtasks:
-- [x] T008 Persist structured `languages` field at compile time (WP02)
-- [x] T009 Update `infer_repo_languages` resolution precedence (WP02)
-- [x] T010 Verify consumers (`context.py`, `compact.py`) (WP02)
-- [x] T011 Invert pinning test + add disagreement/structured-field cases (WP02)
-- [x] T012 Add backward-compatibility test (WP02)
-- [x] T013 Update documentation (WP02)
-- [x] T014 Run charter test subset + ruff/mypy + terminology guard (WP02)
+- [ ] T008 Persist structured `languages` field at compile time (WP02)
+- [ ] T009 Update `infer_repo_languages` resolution precedence (WP02)
+- [ ] T010 Verify consumers (`context.py`, `compact.py`) (WP02)
+- [ ] T011 Invert pinning test + add disagreement/structured-field cases (WP02)
+- [ ] T012 Add backward-compatibility test (WP02)
+- [ ] T013 Update documentation (WP02)
+- [ ] T014 Run charter test subset + ruff/mypy + terminology guard (WP02)
 
 **Implementation sketch**: Read `compiler.py`, `language_scope.py`, `context.py` (lines ~1320,1326,2188-2207), and `compact.py:195` fully first. Extend the compiler's output schema with a structured language set computed from interview answers at compile time (reusing the existing `extract_declared_languages` extractor, invoked once, canonically, at compile time). Update `infer_repo_languages` (or introduce its replacement, keeping the public call signature stable for existing callers) to read that structured value first; only fall back to today's interview-transcript-then-charter-prose extraction when no structured value exists yet. Run `tests/charter/test_language_scope.py::test_infer_repo_languages_prefers_interview_answers` unmodified first to confirm it is currently green (i.e., encodes the bug), then invert its assertion and add the missing disagreement case.
 
